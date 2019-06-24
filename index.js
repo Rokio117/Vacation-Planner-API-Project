@@ -2,18 +2,17 @@
 let numSearch = $('#results-length').val()
 const apiKey = 'tLlmdwj7hxSbe01snvsAG6ezl4TbSZqytzqoBFwb'
 const baseUrl = 'https://developer.nps.gov/api/v1/parks'
-const options = {
-  headers: new Headers({
-    'X-Api-Key': apiKey })
-}
 
 function handleSubmit() {
   $('#user-input').submit(function(event){
     event.preventDefault()
     $('#search-results').empty()
     userState = $('#state-selector').val()
+    states = userState.replace(",","&q=")
+    states = states.replace(/\s/g, "")
     numSearch = $('#results-length').val()
-    createURL(userState, numSearch);
+    console.log(states);
+    createURL(states, numSearch);
   })
   
 }
@@ -22,7 +21,9 @@ function handleSubmit() {
 function createURL(userState, num) {
   newUrl =`${baseUrl}?limit=${num}&q=${userState}&api_key=${apiKey}`
   console.log(newUrl)
-  fetchURL(newUrl, options)
+  encodedUrl= encodeURIComponent(newUrl)
+  console.log(encodedUrl)
+  fetchURL(newUrl)
 }
 
 function fetchURL(URL) {
