@@ -8,3 +8,7 @@ input {
   margin-left: auto;
   margin-right: auto;
 }
+li {
+  list-style: none;
+  margin: 30px;
+}
